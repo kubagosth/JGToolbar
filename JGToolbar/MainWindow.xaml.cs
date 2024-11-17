@@ -38,6 +38,16 @@ namespace JGToolbar
         }
 
         /// <summary>
+        /// Open Visual Studio Code.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenVisualStudioCode_Click(object sender, RoutedEventArgs e)
+        {
+            explorerManager.OpenVisualStudioCode();
+        }
+
+        /// <summary>
         /// Open a command prompt window in the current directory of the File Explorer window.
         /// </summary>
         /// <param name="sender"></param>
