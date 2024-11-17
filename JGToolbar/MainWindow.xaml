@@ -1,12 +1,64 @@
 ﻿<Window x:Class="JGToolbar.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JGToolbar"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Floating Toolbar" Height="45" Width="200"
+        Topmost="True" WindowStyle="None" ResizeMode="NoResize"
+        AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF444950" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="BorderBrush" Value="#FF33373C" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="5">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#FF555B65"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#FF2D3136"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-    </Grid>
+        <DrawingBrush x:Key="GitHubIconBrush">
+            <DrawingBrush.Drawing>
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            F1 M12,2 C6.477,2 2,6.477 2,12 C2,16.418 4.868,20.255 8.837,21.525 C9.322,21.603 9.5,21.333 9.5,21.118 C9.5,20.922 9.494,20.222 9.49,19.26 C6.73,19.925 5.935,18.443 5.935,18.443 C5.49,17.285 4.868,16.972 4.868,16.972 C4.056,16.435 4.955,16.45 4.955,16.45 C5.868,16.505 6.342,17.462 6.342,17.462 C7.163,18.85 8.467,18.419 9.047,18.194 C9.129,17.511 9.398,17.03 9.702,16.748 C7.085,16.465 4.463,15.461 4.463,11.748 C4.463,10.645 4.827,9.75 5.463,9.059 C5.353,8.77 5.027,7.702 5.573,6.11 C5.573,6.11 6.423,5.823 9.5,7.773 C10.47,7.504 11.505,7.364 12.5,7.36 C13.5,7.364 14.536,7.5 15.5,7.77 C18.577,5.823 19.427,6.11 19.427,6.11 C19.973,7.702 19.647,8.77 19.537,9.059 C20.173,9.75 20.537,10.645 20.537,11.748 C20.537,15.47 17.914,16.46 15.291,16.738 C15.723,17.108 16.056,17.83 16.056,18.778 C16.056,20.07 16.048,20.912 16.048,21.118 C16.048,21.334 16.224,21.607 16.715,21.525 C20.682,20.255 23.554,16.417 23.554,12 C23.554,6.477 19.523,2 12,2 Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </Window.Resources>
+
+    <Border Background="#FF33373C" CornerRadius="8" Padding="05" Margin="0,0,0,0">
+        <StackPanel Orientation="Horizontal">
+            <Button Content="CMD" Margin="5" Height="25" Width="30" Click="OpenCommandPrompt_Click"/>
+            <Button Margin="5" Width="25" Height="25" ToolTip="GitHub" Click="Git_Click">
+                <Rectangle Fill="{StaticResource GitHubIconBrush}" Width="20" Height="20"/>
+            </Button>
+        </StackPanel>
+    </Border>
 </Window>
