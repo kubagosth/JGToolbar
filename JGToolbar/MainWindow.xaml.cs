@@ -17,22 +17,9 @@ namespace JGToolbar
         public MainWindow()
         {
             InitializeComponent();
-            SetStartup();
+            StartupManager.SetStartup();
             PositionNearExplorer();
             StartPositionTracking();
-        }
-
-        /// <summary>
-        /// Set this application to run on startup.
-        /// </summary>
-        private void SetStartup()
-        {
-            string exePath = Process.GetCurrentProcess().MainModule.FileName;
-            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            if (registryKey.GetValue(AppName) == null)
-            {
-                registryKey.SetValue(AppName, exePath);
-            }
         }
 
         /// <summary>
