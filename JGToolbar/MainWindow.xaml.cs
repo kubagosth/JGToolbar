@@ -23,52 +23,6 @@ namespace JGToolbar
         }
 
         /// <summary>
-        /// Open a command prompt window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenCommandPrompt_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("cmd.exe");
-        }
-
-        /// <summary>
-        /// Open a command prompt window in the current directory of the File Explorer window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Git_Click(object sender, RoutedEventArgs e)
-        {
-            ShellWindows shellWindows = new ShellWindows();
-
-            // Loop through all the open Shell Windows (Explorer)
-            foreach (InternetExplorer window in shellWindows)
-            {
-                // Check if the window is a File Explorer window (not a browser)
-                if (Path.GetFileNameWithoutExtension(window.FullName).Equals("explorer", StringComparison.OrdinalIgnoreCase))
-                {
-                    try
-                    {
-                        ProcessStartInfo startInfo = new ProcessStartInfo
-                        {
-                            FileName = "cmd.exe",
-                            Arguments = $"/c dotnet new gitignore",
-                            WorkingDirectory = new Uri(window.LocationURL).LocalPath,
-                            CreateNoWindow = true,
-                            UseShellExecute = false
-                        };
-                        Process.Start(startInfo);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-
-                }
-            }
-        }
-
-        /// <summary>
         /// Position the toolbar near the File Explorer window.
         /// </summary>
         private void PositionNearExplorer()
