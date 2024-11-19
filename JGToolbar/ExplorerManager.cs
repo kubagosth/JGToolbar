@@ -89,14 +89,25 @@ namespace JGToolbar
         private string GetCurrentExplorerPath()
         {
             ShellWindows shellWindows = new ShellWindows();
-            foreach (InternetExplorer window in shellWindows)
+            try
             {
-                if (Path.GetFileNameWithoutExtension(window.FullName).Equals("explorer", StringComparison.OrdinalIgnoreCase))
+                foreach (InternetExplorer window in shellWindows)
                 {
-                    return new Uri(window.LocationURL).LocalPath;
+                    if (Path.GetFileNameWithoutExtension(window.FullName).Equals("explorer", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return new Uri(window.LocationURL).LocalPath;
+                    }
                 }
+                return null;
             }
-            return null;
+            catch (UriFormatException ex)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get current explorer path.", ex);
+            }
         }
     }
 }
