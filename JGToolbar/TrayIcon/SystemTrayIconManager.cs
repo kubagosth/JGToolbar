@@ -7,12 +7,14 @@ namespace JGToolbar.TrayIcon
     public class SystemTrayIconManager
     {
         private NotifyIcon notifyIcon;
+        private SettingsWindow settingsWindow;
+        private AboutWindow aboutWindow;
 
         public SystemTrayIconManager()
         {
             notifyIcon = new NotifyIcon
             {
-                Icon = GetTemporaryIcon(),
+                Icon = new Icon("Assets/Icon.ico"),
                 Visible = true,
                 Text = "JG Toolbar"
             };
@@ -33,24 +35,35 @@ namespace JGToolbar.TrayIcon
 
             notifyIcon.ContextMenuStrip = contextMenu;
 
-            AppDomain.CurrentDomain.ProcessExit += (s, e) => notifyIcon.Dispose();
-        }
-
-        private Icon GetTemporaryIcon()
-        {
-            return new Icon("Assets/Icon.ico");
+            AppDomain.CurrentDomain.ProcessExit += (sender, args) => notifyIcon.Dispose();
         }
 
         private void OnSettingsClicked(object sender, EventArgs e)
         {
-            SettingsWindow settingsWindow = new();
-            settingsWindow.Show();
+            if (settingsWindow == null || !settingsWindow.IsVisible)
+            {
+                settingsWindow = new SettingsWindow();
+                settingsWindow.Closed += (sender, args) => settingsWindow = null; 
+                settingsWindow.Show();
+            }
+            else
+            {
+                settingsWindow.Activate(); 
+            }
         }
 
         private void OnAboutClicked(object sender, EventArgs e)
         {
-            AboutWindow aboutWindow = new();
-            aboutWindow.Show();
+            if (aboutWindow == null || !aboutWindow.IsVisible)
+            {
+                aboutWindow = new AboutWindow();
+                aboutWindow.Closed += (sender, args) => aboutWindow = null; 
+                aboutWindow.Show();
+            }
+            else
+            {
+                aboutWindow.Activate(); 
+            }
         }
 
         private void OnExitClicked(object sender, EventArgs e)
