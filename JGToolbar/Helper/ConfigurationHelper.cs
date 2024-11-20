@@ -10,15 +10,16 @@ namespace JGToolbar.Helper
         private static string filePath = "Settings/AppSettings.json";
 
         /// <summary>
-        /// Get a setting value from the AppSettings.json file. 
+        /// Get a setting value from the AppSettings.json file.
+        /// Supports nested keys using "." as a separator. 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
+        /// <param name="keyPath"></param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        /// <exception cref="KeyNotFoundException"></exception>
         /// <exception cref="InvalidDataException"></exception>
-        public static T GetSettingValue<T>(string key)
+        /// <exception cref="KeyNotFoundException"></exception>
+        public static T GetSettingValue<T>(string keyPath)
         {
             if (!File.Exists(filePath))
             {
@@ -26,21 +27,31 @@ namespace JGToolbar.Helper
                 throw new FileNotFoundException("AppSettings.json not found.");
             }
 
-
             string json = File.ReadAllText(filePath);
 
             try
             {
-                JsonNode rootNode = JsonNode.Parse(json);
-                JsonNode? valueNode = rootNode?[key];
-
-                if (valueNode == null)
+                JsonNode? rootNode = JsonNode.Parse(json);
+                if (rootNode == null)
                 {
-                    MessageBox.Show($"Key '{key}' not found in AppSettings.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw new KeyNotFoundException($"Key '{key}' not found in AppSettings.");
+                    MessageBox.Show("The JSON file is empty or invalid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new InvalidDataException("The JSON file is empty or invalid.");
                 }
 
-                return valueNode.Deserialize<T>();
+                // Split the keyPath by "." to support nested keys
+                string[] keys = keyPath.Split('.');
+
+                JsonNode? currentNode = rootNode;
+                foreach (string key in keys)
+                {
+                    currentNode = currentNode?[key];
+                    if (currentNode == null)
+                    {
+                        MessageBox.Show($"Key path '{keyPath}' not found in AppSettings.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw new KeyNotFoundException($"Key path '{keyPath}' not found in AppSettings.");
+                    }
+                }
+                return currentNode.Deserialize<T>()!;
             }
             catch (JsonException ex)
             {
@@ -48,5 +59,6 @@ namespace JGToolbar.Helper
                 throw new InvalidDataException("Error parsing AppSettings.json.", ex);
             }
         }
+
     }
 }
