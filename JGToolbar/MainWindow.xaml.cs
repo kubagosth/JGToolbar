@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32; 
+﻿using JGToolbar.TrayIcon;
+using Microsoft.Win32;
 using SHDocVw;
 using System.Diagnostics;
 using System.IO;
@@ -23,7 +24,7 @@ namespace JGToolbar
             explorerManager = new ExplorerManager();
             windowPositionManager = new WindowPositionManager(this);
             StartupManager.SetStartup();
-
+            SystemTrayIconManager systemTrayIconManager = new SystemTrayIconManager();
             StartPositionTracking();
         }
 
