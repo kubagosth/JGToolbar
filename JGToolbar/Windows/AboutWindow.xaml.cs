@@ -10,13 +10,10 @@ namespace JGToolbar.Windows
         {
             InitializeComponent();
 
-            string settingsPath = "Settings/AppSettings.json"; 
-            var settings = ConfigurationHelper.LoadSettings(settingsPath);
-
-            AppNameText.Text = settings.AppName;
-            VersionText.Text = $"Version {settings.Version}";
-            DeveloperText.Text = $"Developed by {settings.Developer}";
-            DescriptionText.Text = settings.Description;
+            AppNameText.Text = ConfigurationHelper.GetSettingValue<string>("AppName");
+            VersionText.Text = $"Version {ConfigurationHelper.GetSettingValue<string>("Version")}";
+            DeveloperText.Text = $"Developer: {ConfigurationHelper.GetSettingValue<string>("Developer")}";
+            DescriptionText.Text = ConfigurationHelper.GetSettingValue<string>("Description");
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
