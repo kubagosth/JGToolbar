@@ -38,7 +38,7 @@ namespace JGToolbar.TrayIcon
 
         private Icon GetTemporaryIcon()
         {
-            return SystemIcons.Application; //TODO: Replace the icon
+            return new Icon("Assets/Icon.ico");
         }
 
         private void OnSettingsClicked(object sender, EventArgs e)
