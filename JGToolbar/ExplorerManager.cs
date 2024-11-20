@@ -14,7 +14,29 @@ namespace JGToolbar
         /// </summary>
         public void OpenCommandPrompt()
         {
-            Process.Start("cmd.exe");
+            string path = GetCurrentExplorerPath();
+            if (!string.IsNullOrEmpty(path))
+            {
+                try
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        WorkingDirectory = path,
+                        UseShellExecute = false,
+                        CreateNoWindow = false
+                    };
+                    Process.Start(startInfo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to open command prompt: {ex.Message}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No active File Explorer window found.");
+            }
         }
 
         /// <summary>
