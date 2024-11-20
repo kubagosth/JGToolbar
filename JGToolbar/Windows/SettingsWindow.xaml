@@ -1,0 +1,33 @@
+﻿<Window x:Class="JGToolbar.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Height="300" Width="400"
+        Topmost="True" WindowStyle="None" ResizeMode="NoResize"
+        AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF444950" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="BorderBrush" Value="#FF33373C" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="Auto" />
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#FF33373C" CornerRadius="8" Padding="10">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350">
+            <TextBlock Text="Settings" FontSize="18" FontWeight="Bold" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10" VerticalAlignment="Center">
+                <CheckBox x:Name="AutorunCheckBox" Content="Run on Startup" Foreground="White" FontSize="14" VerticalAlignment="Center" Checked="AutorunCheckBox_Checked" Unchecked="AutorunCheckBox_Unchecked"/>
+            </StackPanel>
+
+            <Button Content="Close" Width="100" HorizontalAlignment="Center" Margin="0,20,0,0" Click="Close_Click"/>
+        </StackPanel>
+    </Border>
+</Window>

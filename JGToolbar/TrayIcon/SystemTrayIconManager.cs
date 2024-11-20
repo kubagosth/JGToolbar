@@ -42,7 +42,8 @@ namespace JGToolbar.TrayIcon
 
         private void OnSettingsClicked(object sender, EventArgs e)
         {
-            MessageBox.Show("Settings... //TODO", "JG Toolbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SettingsWindow settingsWindow = new();
+            settingsWindow.Show();
         }
 
         private void OnAboutClicked(object sender, EventArgs e)
