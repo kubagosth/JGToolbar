@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using JGToolbar.Windows;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace JGToolbar.TrayIcon
@@ -48,7 +49,8 @@ namespace JGToolbar.TrayIcon
 
         private void OnAboutClicked(object sender, EventArgs e)
         {
-            MessageBox.Show("About... //TODO", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            AboutWindow aboutWindow = new();
+            aboutWindow.Show();
         }
 
         private void OnExitClicked(object sender, EventArgs e)
