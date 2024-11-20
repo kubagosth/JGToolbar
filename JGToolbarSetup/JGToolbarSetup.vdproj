@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_784E3FF303FF43D69F295586B8875764"
+        "MsmKey" = "8:_0F96DEA4FC9B464A96C097C0B8D976B3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F7F59A27E8A246169BE6E7018F4A256B"
+        "MsmKey" = "8:_784E3FF303FF43D69F295586B8875764"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -43,6 +43,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -59,6 +75,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -76,14 +100,24 @@
         {
             "LaunchCondition"
             {
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_045CF35CC0D143CA8DDA380679201D96"
+                {
+                "Name" = "8:.NET Core"
+                "Message" = "8:[VSDNETCOREMSG]"
+                "AllowLaterVersions" = "11:FALSE"
+                "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
+                "IsNETCore" = "11:TRUE"
+                "Architecture" = "2:0"
+                "Runtime" = "2:0"
+                }
             }
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F7F59A27E8A246169BE6E7018F4A256B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0F96DEA4FC9B464A96C097C0B8D976B3"
             {
-            "SourcePath" = "8:C:\\Users\\Jakub\\Downloads\\3592841-cog-gear-general-machine-office-setting-settings_107765.ico"
-            "TargetName" = "8:3592841-cog-gear-general-machine-office-setting-settings_107765.ico"
+            "SourcePath" = "8:..\\JGToolbar\\Assets\\Icon.ico"
+            "TargetName" = "8:Icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_069064770E104A03A264DE052588CBD2"
             "Condition" = "8:"
@@ -157,7 +191,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JGToolbarSetup"
         "ProductCode" = "8:{2C33338B-36D5-4C04-A0A5-7EDC035C4C69}"
-        "PackageCode" = "8:{5C16399C-CCFF-4DCB-A714-F5386A44EA25}"
+        "PackageCode" = "8:{E4B3C6BC-F3B1-42EE-9A06-B2AE59FE8561}"
         "UpgradeCode" = "8:{58F94170-E520-414E-AF66-F20A120858EE}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -165,7 +199,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Jakub Grabarski"
+        "Manufacturer" = "8:kubagosth"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:JGToolbarSetup"
@@ -288,7 +322,7 @@
             "Target" = "8:_784E3FF303FF43D69F295586B8875764"
             "Folder" = "8:_3C5E0EB405324808866D623E311D7E8B"
             "WorkingFolder" = "8:_069064770E104A03A264DE052588CBD2"
-            "Icon" = "8:_F7F59A27E8A246169BE6E7018F4A256B"
+            "Icon" = "8:_0F96DEA4FC9B464A96C097C0B8D976B3"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A981EF99F6CE4A5B9C64238785BAF6F8"
@@ -302,7 +336,7 @@
             "Target" = "8:_784E3FF303FF43D69F295586B8875764"
             "Folder" = "8:_A437806798BE4CFEBEE7C8F7DA7FF000"
             "WorkingFolder" = "8:_069064770E104A03A264DE052588CBD2"
-            "Icon" = "8:_F7F59A27E8A246169BE6E7018F4A256B"
+            "Icon" = "8:_0F96DEA4FC9B464A96C097C0B8D976B3"
             "Feature" = "8:"
             }
         }
