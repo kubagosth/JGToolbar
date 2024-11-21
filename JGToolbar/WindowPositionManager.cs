@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace JGToolbar
@@ -20,40 +19,38 @@ namespace JGToolbar
         public void PositionNearExplorer()
         {
             IntPtr explorerHandle = FindWindow("CabinetWClass", null);
-            if (explorerHandle != IntPtr.Zero)
-            {
-                if (IsWindowMinimized(explorerHandle))
-                {
-                    window.Hide();
-                    return;
-                }
-                else
-                {
-                    window.Show();
-                }
 
-                RECT rect;
-                if (GetWindowRect(explorerHandle, out rect))
-                {
-                    // Calculate target positions for bottom-center alignment
-                    double targetLeft = rect.Left + (rect.Right - rect.Left) / 2 - (window.Width / 2); // Center horizontally
-                    double targetTop = rect.Bottom - window.Height - 10; // Position slightly above bottom edge (adjust margin)
-
-                    // Smooth movement using linear interpolation
-                    window.Left += (targetLeft - window.Left) * smoothingFactor;
-                    window.Top += (targetTop - window.Top) * smoothingFactor;
-
-                    // Snap to target position if close enough
-                    if (Math.Abs(targetLeft - window.Left) < 1 && Math.Abs(targetTop - window.Top) < 1)
-                    {
-                        window.Left = targetLeft;
-                        window.Top = targetTop;
-                    }
-                }
-            }
-            else
+            // Check if the active window is not File Explorer 
+            IntPtr foregroundHandle = GetForegroundWindow();
+            if (foregroundHandle != explorerHandle || explorerHandle == IntPtr.Zero)
             {
                 window.Hide();
+                return;
+            }
+
+            if (IsWindowMinimized(explorerHandle))
+            {
+                window.Hide();
+                return;
+            }
+
+            window.Show();
+
+            RECT rect;
+
+            if (GetWindowRect(explorerHandle, out rect))
+            {
+                double targetLeft = rect.Left + (rect.Right - rect.Left) / 2 - (window.Width / 2);
+                double targetTop = rect.Bottom - window.Height - 10;
+
+                window.Left += (targetLeft - window.Left) * smoothingFactor;
+                window.Top += (targetTop - window.Top) * smoothingFactor;
+
+                if (Math.Abs(targetLeft - window.Left) < 1 && Math.Abs(targetTop - window.Top) < 1)
+                {
+                    window.Left = targetLeft;
+                    window.Top = targetTop;
+                }
             }
         }
 
@@ -71,7 +68,9 @@ namespace JGToolbar
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
         private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
         [DllImport("user32.dll")]
