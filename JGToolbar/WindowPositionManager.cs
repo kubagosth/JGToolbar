@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+﻿using JGToolbar.Helper;
 using System.Windows;
 
 namespace JGToolbar
@@ -18,11 +18,14 @@ namespace JGToolbar
         /// </summary>
         public void PositionNearExplorer()
         {
-            IntPtr explorerHandle = FindWindow("CabinetWClass", null);
+            IntPtr explorerHandle = WindowApi.FindWindow("CabinetWClass", null);
 
             // Check if the active window is not File Explorer 
-            IntPtr foregroundHandle = GetForegroundWindow();
-            if (foregroundHandle != explorerHandle || explorerHandle == IntPtr.Zero || IsWindowMinimized(explorerHandle))
+            IntPtr foregroundHandle = WindowApi.GetForegroundWindow();
+            if (foregroundHandle != explorerHandle ||
+                explorerHandle == IntPtr.Zero ||
+                ControlPanelHelper.IsControlPanelOrNested(explorerHandle) ||
+                IsWindowMinimized(explorerHandle))
             {
                 window.Hide();
                 return;
@@ -30,9 +33,9 @@ namespace JGToolbar
 
             window.Show();
 
-            RECT rect;
+            WindowApi.RECT rect;
 
-            if (GetWindowRect(explorerHandle, out rect))
+            if (WindowApi.GetWindowRect(explorerHandle, out rect))
             {
                 // Calculate target positions for bottom-center alignment
                 double targetLeft = rect.Left + (rect.Right - rect.Left) / 2 - (window.Width / 2);
@@ -58,28 +61,7 @@ namespace JGToolbar
         /// <returns></returns>
         private bool IsWindowMinimized(IntPtr hWnd)
         {
-            return IsIconic(hWnd);
-        }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [DllImport("user32.dll")]
-        private static extern bool IsIconic(IntPtr hWnd);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
+            return WindowApi.IsIconic(hWnd);
         }
     }
 }
