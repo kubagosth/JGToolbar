@@ -22,13 +22,7 @@ namespace JGToolbar
 
             // Check if the active window is not File Explorer 
             IntPtr foregroundHandle = GetForegroundWindow();
-            if (foregroundHandle != explorerHandle || explorerHandle == IntPtr.Zero)
-            {
-                window.Hide();
-                return;
-            }
-
-            if (IsWindowMinimized(explorerHandle))
+            if (foregroundHandle != explorerHandle || explorerHandle == IntPtr.Zero || IsWindowMinimized(explorerHandle))
             {
                 window.Hide();
                 return;
