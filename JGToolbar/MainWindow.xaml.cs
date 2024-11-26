@@ -1,4 +1,5 @@
 ﻿using JGToolbar.TrayIcon;
+using JGToolbar.Windows;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -20,6 +21,12 @@ namespace JGToolbar
             windowPositionManager = new WindowPositionManager(this);
             SystemTrayIconManager systemTrayIconManager = new SystemTrayIconManager();
             StartPositionTracking();
+        }
+
+        private void OpenNode_Click(object sender, RoutedEventArgs e)
+        {
+            NodeSelectorWindow nodeSelectorWindow = new NodeSelectorWindow();
+            nodeSelectorWindow.Show();
         }
 
         /// <summary>

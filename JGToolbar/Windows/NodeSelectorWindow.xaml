@@ -1,0 +1,86 @@
+﻿<Window x:Class="JGToolbar.Windows.NodeSelectorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Node Version Selector" Height="250" Width="430"
+        Topmost="True" WindowStyle="None" ResizeMode="NoResize"
+        AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF444950" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="6,3" />
+            <Setter Property="BorderBrush" Value="#FF555B65" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#FF555B65"/>
+                                <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#FF777D85"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#FF2D3136"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#FF444950" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#FF555B65" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#FF33373C" CornerRadius="8" Padding="10">
+        <StackPanel Orientation="Vertical">
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                <Label Content="Available Versions:" VerticalAlignment="Center" />
+                <ComboBox x:Name="AvailableVersionsDropdown" Width="180" Margin="10,0,0,0" />
+                <Button Content="Install" Width="80" Margin="10,0,0,0" Click="InstallButton_Click" />
+            </StackPanel>
+
+            <GroupBox Header="Installed Versions" 
+                      BorderBrush="#FF555B65" 
+                      Foreground="White" 
+                      Background="#FF33373C"
+                      Padding="10" Margin="0,0,0,10">
+                <ListBox x:Name="InstalledVersionsList" 
+                         Background="#FF444950" 
+                         Foreground="White" 
+                         BorderBrush="Transparent" 
+                         Margin="0,5,0,0" />
+            </GroupBox>
+
+            <Button Content="Close" 
+                    HorizontalAlignment="Right" 
+                    Width="80" 
+                    Margin="0,10,0,0" 
+                    Click="CloseButton_Click" />
+        </StackPanel>
+    </Border>
+</Window>

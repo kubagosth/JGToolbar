@@ -64,6 +64,21 @@
                 </GeometryDrawing>
             </DrawingBrush.Drawing>
         </DrawingBrush>
+
+        <DrawingBrush x:Key="NodeIconBrush">
+            <DrawingBrush.Drawing>
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            F1 M12,2 L18.928,6 L18.928,14 L12,18 L5.072,14 L5.072,6 L12,2 Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
+
+
     </Window.Resources>
 
     <Border Background="#FF33373C" CornerRadius="8" Padding="5" Margin="0,0,0,0">
@@ -74,6 +89,9 @@
             </Button>
             <Button Margin="5" Width="35" Height="30" ToolTip="Visual Studio" Click="OpenVisualStudioCode_Click">
                 <Rectangle Fill="{StaticResource VisualStudioIconBrush}" Width="18" Height="18"/>
+            </Button>
+            <Button Margin="5" Width="35" Height="30" ToolTip="Node.js" Click="OpenNode_Click">
+                <Rectangle Fill="{StaticResource NodeIconBrush}" Width="18" Height="18"/>
             </Button>
         </StackPanel>
     </Border>
