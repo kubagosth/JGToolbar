@@ -1,4 +1,5 @@
 ﻿using JGToolbar.Helper;
+using System;
 using System.Windows;
 
 namespace JGToolbar
@@ -7,6 +8,7 @@ namespace JGToolbar
     {
         private readonly Window window;
         private double smoothingFactor = 0.5;
+        private bool isWindowVisible = false;
 
         public WindowPositionManager(Window window)
         {
@@ -22,16 +24,28 @@ namespace JGToolbar
 
             // Check if the active window is not File Explorer 
             IntPtr foregroundHandle = WindowApi.GetForegroundWindow();
-            if (foregroundHandle != explorerHandle ||
-                explorerHandle == IntPtr.Zero ||
-                ControlPanelHelper.IsControlPanelOrNested(explorerHandle) ||
-                IsWindowMinimized(explorerHandle))
+            bool shouldShow = foregroundHandle == explorerHandle &&
+                              explorerHandle != IntPtr.Zero &&
+                              !ControlPanelHelper.IsControlPanelOrNested(explorerHandle) &&
+                              !IsWindowMinimized(explorerHandle);
+
+            // Show or hide the window only if the state changes
+            if (shouldShow && !isWindowVisible)
+            {
+                window.Show();
+                isWindowVisible = true;
+            }
+            else if (!shouldShow && isWindowVisible)
             {
                 window.Hide();
-                return;
+                isWindowVisible = false;
             }
 
-            window.Show();
+            // If the window should not be shown, no need to position it
+            if (!shouldShow)
+            {
+                return;
+            }
 
             WindowApi.RECT rect;
 
